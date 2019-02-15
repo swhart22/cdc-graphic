@@ -1,0 +1,210 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title><%= htmlWebpackPlugin.options.title %></title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"
+   integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ=="
+   crossorigin=""/>
+   <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:300,700" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css?family=Roboto:300,700" rel="stylesheet">
+
+    <script src="https://data.nbcstations.com/js/crosstalk.js"></script>
+    <script type="text/javascript">
+         document.addEventListener("DOMContentLoaded", function() {
+            xtalk.responsive = false;
+            xtalk.init();
+         });
+    </script>
+  </head>
+
+  <body>
+    <style>
+    *{
+      box-sizing:border-box;
+    }
+    html, body{
+      height:100%;
+    }
+    #everything{
+      width:1008px;
+
+    }
+    #controls{
+      position:relative;
+      
+      z-index:5000;
+      /*display:flex;
+      justify-content:space-between;*/
+      /*margin-bottom:10px;*/
+
+      /*display:inline-block;*/
+    }
+    #next{
+      display:inline-block;
+      cursor:pointer;
+      color:#fff;
+      font-weight:700;
+      border-radius:5px;
+      background-color:#69b3f2;
+      padding:14px;
+      text-align:center;
+      font-family:'Roboto',sans-serif;
+      font-weight:300;
+      width:100%;
+      text-transform:uppercase;
+     /* box-shadow: 3px 3px 2px #DBDBDA;*/
+    }
+    #stack{
+      position:relative;
+      height:550px;
+      width:100%;
+    }
+    
+    #container, #leaflet-base, #clipping-layer{
+      position:absolute;
+      left:0;
+      top:0;
+      width:100%;
+      height:100%;
+
+    }
+    #container canvas{
+      position:absolute;
+      left:0;
+      top:0;
+    }
+    #leaflet-base {
+      pointer-events:none;
+    }
+    #clipping-layer{
+      background-color:#fff;
+    }
+   
+    #leaflet-base{
+      opacity:0;
+    }
+    #container{
+      pointer-events:none;
+    }
+    #notes{
+      position:absolute;
+      top:30px;
+      left:30px;
+      background-color:#fff;
+      /*border-radius:8px;*/
+      width:300px;
+      min-height:15px;
+      padding:10px 10px 0px 10px;
+      border-style:solid;
+      border-width:1px;
+      border-color:#C0C0C0;
+      box-shadow: 3px 3px 2px #C0C0C0;
+      
+      /*display:none;*/
+    }
+    #text{
+      font-family:'Roboto Slab', serif;
+      font-weight:300;
+      font-size:18px;
+      /*line-height:1.5;*/
+      margin-bottom:10px;
+    }
+    .x-axis text, .y-axis text{
+      font-family:'Arimo',sans-serif;
+
+    }
+    .x-axis .tick line, .y-axis .tick line{
+      shape-rendering:crispEdges;
+      stroke-dasharray:2, 2;
+      stroke:#A9A9A9;
+
+    }
+    .x-axis path, .y-axis path{
+     display:none;
+    }
+    .axis-label{
+      font-family:'Arimo', sans-serif;
+      font-size:12px;
+    }
+    .leaflet-pane{
+      z-index:0;
+    }
+    .leaflet-control {
+      display:none;
+    }
+
+    #carousel-icons div{
+      display:inline-block;
+      color:#69b3f2;
+      font-size:9px;
+      padding:5px;
+
+    }
+    #carousel-icons{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      height:30px;
+    }
+    @media only screen and (max-width: 400px) {
+      #everything{
+        width:100%;
+        height:100%;
+      }
+      #controls{
+       
+      }
+      #stack {
+        width:100%;
+        height:650px;
+      }
+      #leaflet-base{
+        height:100%;
+        /*margin-top:325px;*/
+      }
+      #container{
+        height:100%;
+      }
+    }
+
+    </style>
+    <!-- <select id="select-shape">
+      <option value="tracts">Tracts </option>
+      <option value="scatter">Scatter</option>
+    </select> -->
+    <div id="everything">
+     
+      <!-- <div id="progress-bar">
+      </div> -->
+      <div id="stack">
+         
+       
+        
+        <div id="leaflet-base">
+        </div>
+        
+        <div id="container">
+        </div>
+
+        <div id="notes">
+          <div id="text">
+          </div>
+          <div id="controls">
+          <!-- <div id="prev"><i class="fa fa-arrow-left" aria-hidden="true"></i></div> -->
+          
+            <div id="next">Start <i class="fa fa-arrow-right" aria-hidden="true"></i></div>
+            <div id="carousel-icons"></div>
+          </div>
+        </div>
+         
+
+      </div>
+    
+    </div>
+    
+
+  </body>
+</html>
