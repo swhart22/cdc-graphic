@@ -53,6 +53,12 @@ async function render(){
 			'factors':[factors.exercise, factors.obesity], 
 			'dFile': dataDir + 'bos-topo-tracts.json'
 		},
+		'https://necn.com/':{
+			'metro':'Boston',
+			'metroView':[[42.24971338268648, -71.49163126945497], 9],
+			'factors':[factors.exercise, factors.obesity], 
+			'dFile': dataDir + 'bos-topo-tracts.json'
+		},
 		'https://nbcdfw.com/':{
 			'metro':'Dallas Fort Worth',
 			'metroView':[[32.944977220131506, -97.67591357231142], 9],

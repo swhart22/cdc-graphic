@@ -1,57 +1,92 @@
-# Multimedia Team Graphics Template
-This is a Webpack project template for a graphic used on our sites. It's configured to output an index.html and bundled script file ready to upload to our server and iframe into the CMS. It features live editing capability via Google Sheets (with Sheetsy), webpack's hot reload functionality for development, and Crosstalk to ensure responsive iframe height in the CMS.
+# 500 Cities Graphic: In Case of Update
+This project uses webpack to bundle javascript, so the js that is pushed to data.nbcstations is basically unreadable (sorry I like my hot reloading during dev). 
 
-## Requirements
-Before you get started, you should have the latest version of Node installed on your machine. That should be it, but if you run into any weird errors, let me know. 
+To update it, you'll need to clone this repository, install dev dependencies and dependencies, run the graphic on a local server, make any tweaks, build the graphic, and then put the code onto the server. Here's step by step instrux: 
 
-## Development
-In your terminal or whatever you use to access the command line, navigate to the empty directory you've created for your project. Then run: 
+## Before you start
+
+You will need node installed on your machine. In the command line you can run `node -v` and `npm -v` to see if each of these is installed. If not, [install them](https://www.npmjs.com/get-npm). 
+
+## Step One: Clone and Install
+
+Using the command line, navigate to wherever you want to clone this repo. Then run: 
+
 ```
-curl -fsSL https://github.com/swhart22/nbc-ots-gfx/archive/master.tar.gz | tar -xz --strip-components=1
+git clone https://github.com/swhart22/cdc-graphic.git
 ```
-Then:
+
+The folder and a bunch of files should be wherever you cloned them into. Navigate into the folder: 
+
+```
+cd cdc-graphic
+```
+
+And then run: 
+
 ```
 npm i
 ```
-Then:
+
+Hopefully that worked! It may take a few seconds. You will need to have your node proxy set, or be working on C3PO.
+
+```
+sudo npm config set proxy http://proxyanbcge.nbc.com:80
+sudo npm config set proxy http://proxyanbcge.nbc.com:80 -g
+```
+
+If you got an error already try updating your node version! If that doesn't work, just text me and I can make any updates. If you did not get an error, continue!
+
+## Step Two: Run a Local Server to Update and Test Graphic
+
+In the `cdc-graphic` directory, you should be able to run
+
 ```
 npm run start
 ```
-If all went well, your browser should open up a tab on localhost:3000 with the development version of your graphic.
 
-You can change the port in the webpack.dev.js file—note that you'll get an error if you try to run `npm run start` and a different project is already running on the same port.
+and have a browser window open up with the graphic in it. If that doesn't happen, make sure you don't have anything running on `localhost:3000` and then try again.
 
-### Javascript libraries
-The project comes with d3 installed. Use ES6 import syntax to use it (or any js library) in a javascript file like:
+At this phase, you can make changes to the javascript. Any javascript I'm using to power the graphic is in the `/src/js/` folder. This is the javascript that will be bundled into build mode.
+
+The majority of this project's code is d3 and leaflet, and I admit the markup is not pretty. Most everything you would need to update will be in the `src/js/draw.js` file. Each phase of the graphic is written into an individual functions. These functions are called: 
+
 ```
-import * as d3 from 'd3';
+twoTracts // displays the tracts with the highest and lowest values for whichever CDC factor we're concerned with
+flyToHighest // flies the map to the tract with highest value
+flyToLowest // flies the map to the tract with lowest value
+preScatter // turns each of these tracts into a circle that goes onto the scatterplot, whose axes appear
+scatter // shows the rest of the tracts on the scatterplot as circles
+situate // displays base map and shrinks scatter into corner to prepare for tracts to transition from circles to geoshapes on map
+geoPlace50 // transitions highest 50% of tracts onto map
+geoPlace1000 // transitions the rest of tracts onto map
 ```
-OR, you can import specific d3 modules without importing the whole library like so: 
+
+If you need to edit the graphic at any phase, look for the corresponding function. If you need to update the text, you can update it in the line of code that says
+
 ```
-const d3 = Object.assign({}, require('d3-format'));
+text.html(/*new html here*/)
 ```
 
-You can also load libraries like D3 and jQuery via their CDNs in the index.html file in the templates folder. Doing that reduces the size of your bundle, but importing and compiling reduces the number of HTTP requests and optimizes javascript processes.
+Domain business is controlled in `/src/js/proj-config.js`. Crosstalk grabs the domain of the parent container of the graphic. The fallback is set to <https://nbcboston.com>.
 
-### Setup
-The project's default is a div with the ID "container" that has a width of 960px and a height of 540px (set in nbcotsbase.css). The standard width for our CMS is 620px, 960px may be used for wide article pages. 
+CDC Factors are configured in the `src/js/factors.js` file. The only ones we have available at the moment are exercise, obesity, blood pressure, heart disease and diabetes. If you need to change the factor for Boston's map, update the first element in the 'factors' array in `src/js/proj-config.js` with the following format: `factors.exercise`, `factors.obesity`, `factors['blood pressure']`, `factors['mental health']`, or `factors['binge drinking']`.
 
-Our color palette for graphics is available to you in `colors.js`, simply import the object from that file and access the color you want using javascript object syntax. An example of appending a span containing the string "Hello world!" 
+All the CSS in the graphic is include in the `src/templates/index.html` file. This is the file that will compile into our build `index.html`.
 
-### Loading data from Google Sheets
-The project comes with NPM's sheetsy library installed. To configure data to be loaded from a Google spreadsheet, see the npm package page for <a href="https://www.npmjs.com/package/sheetsy">the sheetsy library.</a>
+## Step Three: Build and Deploy
 
-## Production
+Once all the changes are made to the graphic, quit the local server by running Ctrl C in the terminal window you have running it. Then, again in your `cdc-graphic` directory, run 
 
-Once you've made sure the graphic looks like it's supposed to, run:
 ```
 npm run build
 ```
-Open the root folder of your directory, and you'll now see a 'dist' folder. The files inside are the ones you need to push to the server. Webpack has bundled everything into minimally-sized files to make you and everyone's browsers' lives easier!
 
-Test the `index.html` file in your browser just to make sure everything worked, and then push to the server. 
+This compiles all javascript and css etc. into a new folder it creates that is called `dist`. The contents of that folder are what you post to data.nbcstations.com. You should have in there an `index.html` file, an `app.bundle.js` file, a `data` directory with topojson files for each market, and a bunch of font files that I included for the use of fontawesome icons. 
 
-### Why all the fancy javascript? 
-Webpack can do a whole lot of things under the hood that makes your project's code run smoother and sleeker. For me, the live reloading is enough to justify using it: hard refreshing every time you make a change to a project can become pretty annoying!
+If you did all of this successfully, I will be so proud of my template here. If no such luck, I need to work on my template to make it more portable. You can text me and I'll make changes. 
 
-That said, if you can't get this to run for whatever reason or are doing a simple project and want a more straightforward template, try our good ol' project template (LINK TO GITHUB REPO WITH PROJECT TEMPLATE TK).
+
+
+
+
+

@@ -382,10 +382,10 @@ function draw(Data, config){
 
 			selectAll('.base')
 				.filter(d => {
-					let min = d.properties[cdcFactor.colName] == range[0];
+					// let min = d.properties[cdcFactor.colName] == range[0];
 					let max = d.properties[cdcFactor.colName] == range[1];
 					
-					return min | max;
+					return max;
 				}).call(showGeoShapes, newProjection, 3, true);
 				
 		})
@@ -411,9 +411,9 @@ function draw(Data, config){
 			selectAll('.base')
 				.filter(d => {
 					let min = d.properties[cdcFactor.colName] == range[0];
-					let max = d.properties[cdcFactor.colName] == range[1];
+					// let max = d.properties[cdcFactor.colName] == range[1];
 					
-					return min | max;
+					return min;
 				}).call(showGeoShapes, newProjection, 3, true);
 		})
 	}
@@ -461,7 +461,8 @@ function draw(Data, config){
 
 		// isMobile ? leafletMap.fitBounds(metroView) : leafletMap.setView(metroView[0], metroView[1]);
 		leafletMap.fitBounds(totalBounds, {paddingTopLeft: fitPad});
-		selectAll('.base').call(scatterShapes, 3, 0, true);
+		selectAll('.base')
+			.call(scatterShapes, 3, 0, true);
 
 		select('#leaflet-base')
 			.transition()
