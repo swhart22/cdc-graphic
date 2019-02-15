@@ -27,79 +27,92 @@ async function render(){
 			'metro':'Chicago',
 			'metroView':[[41.90855318755631, -88.51674914360048], 9],
 			'factors':[factors['blood pressure']], 
-			'dFile': dataDir + 'chi-topo-tracts.json'
+			'dFile': dataDir + 'chi-topo-tracts.json',
+			'beginnerCircles':false
 		},
 		'https://nbcnewyork.com/':{
 			'metro':'New York',
 			'metroView':[[40.962343848337824, -74.35934185981752], 9],
 			'factors':[ factors.obesity, factors.exercise], 
-			'dFile': dataDir + 'nyc-topo-tracts.json'
+			'dFile': dataDir + 'nyc-topo-tracts.json',
+			'beginnerCircles':false
 		}, 
 		'https://nbcsandiego.com/':{
 			'metro':'San Diego',
 			'metroView':[[33.103522551465346, -118.02984595298769], 9],
 			'factors':[factors.diabetes, factors.obesity], 
-			'dFile': dataDir + 'sd-topo-tracts.json'
+			'dFile': dataDir + 'sd-topo-tracts.json',
+			'beginnerCircles':false
 		},
 		'https://nbcphiladelphia.com/':{
 			'metro':'Philadelphia',
 			'metroView':[[39.92527199411296, -75.42584717273714], 10],
 			'factors':[factors.exercise, factors.obesity], 
-			'dFile': dataDir + 'phi-topo-tracts.json'
+			'dFile': dataDir + 'phi-topo-tracts.json',
+			'beginnerCircles':false
 		},
 		'https://nbcboston.com/':{
 			'metro':'Boston',
 			'metroView':[[42.24971338268648, -71.49163126945497], 9],
 			'factors':[factors.exercise, factors.obesity], 
-			'dFile': dataDir + 'bos-topo-tracts.json'
+			'dFile': dataDir + 'bos-topo-tracts.json',
+			'beginnerCircles':true
 		},
 		'https://necn.com/':{
 			'metro':'Boston',
 			'metroView':[[42.24971338268648, -71.49163126945497], 9],
 			'factors':[factors.exercise, factors.obesity], 
-			'dFile': dataDir + 'bos-topo-tracts.json'
+			'dFile': dataDir + 'bos-topo-tracts.json',
+			'beginnerCircles':true
 		},
 		'https://nbcdfw.com/':{
 			'metro':'Dallas Fort Worth',
 			'metroView':[[32.944977220131506, -97.67591357231142], 9],
 			'factors':[factors.exercise, factors.obesity], 
-			'dFile': dataDir + 'dfw-topo-tracts.json'
+			'dFile': dataDir + 'dfw-topo-tracts.json',
+			'beginnerCircles':false
 		},
 		'https://nbcbayarea.com/':{
 			'metro':'Bay Area',
 			'metroView':[[37.823548214439256, -122.95047640800477], 8],
 			'factors':[factors.exercise, factors.obesity], 
-			'dFile': dataDir + 'bay-topo-tracts.json'
+			'dFile': dataDir + 'bay-topo-tracts.json',
+			'beginnerCircles':false
 		},
 		'https://nbclosangeles.com/':{
 			'metro':'Los Angeles',
 			'metroView':[[34.168121042274116, -118.74389290809633], 9],
 			'factors':[factors.exercise, factors.obesity], 
-			'dFile': dataDir + 'la-topo-tracts.json'
+			'dFile': dataDir + 'la-topo-tracts.json',
+			'beginnerCircles':false
 		},
 		'https://nbcmiami.com/':{
 			'metro':'Miami',
 			'metroView':[[26.284122869098, -80.37953853607179], 9],
 			'factors':[factors.exercise, factors.obesity], 
-			'dFile': dataDir + 'mia-topo-tracts.json'
+			'dFile': dataDir + 'mia-topo-tracts.json',
+			'beginnerCircles':false
 		},
 		'https://nbcwashington.com/':{
 			'metro':'D.C.',
 			'metroView':[[38.88374438136598, -77.21913993358613], 11],
 			'factors':[factors.exercise, factors.obesity], 
-			'dFile': dataDir + 'dc-topo-tracts.json'
+			'dFile': dataDir + 'dc-topo-tracts.json',
+			'beginnerCircles':false
 		},
 		'https://telemundohouston.com/':{
 			'metro':'Houston',
 			'metroView':[[29.81381015146583, -95.93068599700929], 9],
 			'factors':[factors.exercise, factors.obesity], 
-			'dFile': dataDir + 'hou-topo-tracts.json'
+			'dFile': dataDir + 'hou-topo-tracts.json',
+			'beginnerCircles':false
 		},
 		'https://nbcconnecticut.com/':{
 			'metro':'Hartford',
 			'metroView':[[29.81381015146583, -95.93068599700929], 9],
 			'factors':[factors.exercise, factors.obesity], 
-			'dFile': dataDir + 'har-topo-tracts.json'
+			'dFile': dataDir + 'har-topo-tracts.json',
+			'beginnerCircles':false
 		}
 	}
 

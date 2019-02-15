@@ -5,7 +5,7 @@
 //gets rid of need for d3-projection import~!!
 
 function circle(coordinates, cx, cy){
-	var radius = 4;
+	var radius = 3;
 	var circle = [],
 	i = 0,
 	n = coordinates.length;

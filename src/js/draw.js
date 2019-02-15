@@ -32,7 +32,7 @@ function draw(Data, config){
 		return d;
 	});
 
-	console.log(Data);
+	console.log(config.beginnerCircles);
 	let totalBBox = topojson.bbox(Data),
 	totalBounds = L.latLngBounds([[totalBBox[1], totalBBox[0]], [totalBBox[3], totalBBox[2]]])
 
@@ -46,9 +46,9 @@ function draw(Data, config){
 	lHeight = parseInt(select('#leaflet-base').style('height'));
 
 	let isMobile = width <= breakpoint, 
-	scatterWidth = isMobile ? chartWidth - 80 : 300,
+	scatterWidth = isMobile ? chartWidth - 80 : 280,
 	scatterX = isMobile ? 60 : 80,
-	scatterY = isMobile ? (chartHeight / 2) : (chartHeight - scatterWidth) - 40,
+	scatterY = isMobile ? (chartHeight / 2) : (chartHeight - scatterWidth) - 20,
 	fitPad = isMobile ? [0, 200] : [0, 0];
 
 	//leaflet config
@@ -212,7 +212,7 @@ function draw(Data, config){
 			.selectAll('.shape')
 			.transition()
 			.duration(duration)
-			.delay((d, i) => delay ? d.tractI : 0)
+			.delay((d, i) => delay ? d.tractI * 10 : 0)
 			.style('stroke-width', 0)
 			.style('opacity', (d, i) => {
 				let nullACS = d.data.properties['ACS 2017 MEDIAN INCOME'] === 0;
@@ -282,7 +282,7 @@ function draw(Data, config){
 		console.log(labelpos);
 		let xx = labelpos[0], xy = labelpos[1], yx = labelpos[2], yy = labelpos[3];
 
-		let ticks = scatterwidth < 290 ? 2 : 10;
+		let ticks = scatterwidth < 250 ? 2 : 10;
 		selection.style("opacity", opacity);
 		xRange.range([scatterX, scatterX + scatterwidth]);
 		yRange.range([scatterwidth + scattery, scattery]);
@@ -309,6 +309,7 @@ function draw(Data, config){
 	//phases
 	function twoTracts(){
 		let totalDuration = 2000;
+		// svg.selectAll('circle').style('display',() => config.beginnerCircles === true ? 'block' : 'none');
 		selectAll('.base').filter(d => {
 			let max = d.properties['GEOID'] == extentShapes[1].properties['GEOID'];
 			let min = d.properties['GEOID'] == extentShapes[0].properties['GEOID'];
@@ -328,6 +329,24 @@ function draw(Data, config){
 					return min | max;
 					// return min | max;
 				}).call(showGeoShapes, newProjection, 0, false);
+
+			extentShapes.forEach(shape => {
+
+				let centroid = geoPath().projection(newProjection).centroid(shape)
+				svg.append('circle')
+					.style('fill', 'none')
+					.style('stroke', colors['red']['04'])
+					.style('r', 30)
+					.style('stroke-dasharray', '4,2')
+					.style('stroke-width', 2)
+					.style('stroke-linejoin', 'round')
+					.style('cx', centroid[0])
+					.style('cy', centroid[1])
+					.style('display', () => config.beginnerCircles === true ? 'block' : 'none')
+
+				
+			})	
+
 		}
 
 		let newlb;
@@ -342,7 +361,7 @@ function draw(Data, config){
 		let yx = (scatterX - 50),
 			yy = (scatterY + 220),
 			xx = (scatterX + 30),
-			xy = (scatterY + scatterWidth + 35);
+			xy = (scatterY + scatterWidth + 25);
 		
 		scatterPlot.call(updateScatter, scatterWidth, scatterY, 0, [xx, xy, yx, yy]);
 
@@ -363,7 +382,7 @@ function draw(Data, config){
 	}
 	function flyToHighest(){
 		let totalDuration = 2000;
-
+		svg.selectAll('circle').style('display','none');
 		select('#next').call(nextButtonLoading)
 
 		timeout(() => {
@@ -443,7 +462,7 @@ function draw(Data, config){
 		let yx = (scatterX - 50),
 			yy = (scatterY + 220),
 			xx = (scatterX + 30),
-			xy = (scatterY + scatterWidth + 35);
+			xy = (scatterY + scatterWidth + 25);
 
 		scatterPlot.call(updateScatter, scatterWidth, scatterY, 1, [xx, xy, yx, yy])
 
@@ -492,7 +511,7 @@ function draw(Data, config){
 		let yx = (scatterX - 50),
 			yy = (scatterY + 300),
 			xx = (scatterX),
-			xy = (scatterY + scatterWidth + 35);
+			xy = (scatterY + scatterWidth + 25);
 
 		scatterPlot.call(updateScatter, newScatterWidth, chartHeight - newScatterWidth - 30, 1, [xx, xy, yx, yy]);
 		shapes
