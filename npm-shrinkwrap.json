@@ -2496,6 +2496,15 @@
       "resolved": "https://registry.npmjs.org/d3-dispatch/-/d3-dispatch-1.0.5.tgz",
       "integrity": "sha512-vwKx+lAqB1UuCeklr6Jh1bvC4SZgbSqbkGBLClItFBIYH4vqDJCA7qfoy14lXmJdnBOdxndAMxjCbImJYW7e6g=="
     },
+    "d3-drag": {
+      "version": "1.2.3",
+      "resolved": "https://registry.npmjs.org/d3-drag/-/d3-drag-1.2.3.tgz",
+      "integrity": "sha512-8S3HWCAg+ilzjJsNtWW1Mutl74Nmzhb9yU6igspilaJzeZVFktmY6oO9xOh5TDk+BM2KrNFjttZNoJJmDnkjkg==",
+      "requires": {
+        "d3-dispatch": "1",
+        "d3-selection": "1"
+      }
+    },
     "d3-dsv": {
       "version": "1.0.10",
       "resolved": "https://registry.npmjs.org/d3-dsv/-/d3-dsv-1.0.10.tgz",

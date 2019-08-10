@@ -27,10 +27,11 @@
     }
     html, body{
       height:100%;
+      padding:0;
     }
     #everything{
       width:1008px;
-
+      
     }
     #controls{
       position:relative;
@@ -62,7 +63,18 @@
       height:550px;
       width:100%;
     }
-    
+    .legend-label{
+      font-family:'Arimo', sans-serif;
+      font-size:10px;
+      font-weight:800;
+    }
+    .legend-title{
+      font-family:'Arimo', sans-serif;
+      font-size:10px;
+      font-weight:800;
+      padding-top:10px;
+      padding-left:10px;
+    }
     #container, #leaflet-base, #clipping-layer{
       position:absolute;
       left:0;
@@ -71,23 +83,25 @@
       height:100%;
 
     }
-    #container canvas{
+    #legend{
+      width:150px;
+      height:80px;
       position:absolute;
-      left:0;
-      top:0;
+      bottom:10px;
+      right:10px;
+      background-color:#fff;
     }
     #leaflet-base {
-      pointer-events:none;
+      /*pointer-events:none;*/
     }
     #clipping-layer{
       background-color:#fff;
     }
-   
-    #leaflet-base{
-      opacity:0;
+    .leaflet-container{
+      background-color:#fff;
     }
     #container{
-      pointer-events:none;
+      /*pointer-events:none;*/
     }
     #notes{
       position:absolute;
@@ -105,11 +119,19 @@
       
       /*display:none;*/
     }
+    #tooltip{
+      position:absolute;
+      display:none;
+      width:300px;
+      min-height:20px;
+      font-family:'Roboto Slab', serif;
+      font-size:13px;
+    }
     #text{
       font-family:'Roboto Slab', serif;
-      font-weight:300;
+      /*font-weight:300;*/
       font-size:18px;
-      /*line-height:1.5;*/
+      line-height:1.5;
       margin-bottom:10px;
     }
     .x-axis text, .y-axis text{
@@ -133,7 +155,7 @@
       z-index:0;
     }
     .leaflet-control {
-      display:none;
+      /*display:none;*/
     }
 
     #carousel-icons div{
@@ -187,6 +209,7 @@
         </div>
         
         <div id="container">
+          
         </div>
 
         <div id="notes">
@@ -198,8 +221,14 @@
             <div id="next">Start <i class="fa fa-arrow-right" aria-hidden="true"></i></div>
             <div id="carousel-icons"></div>
           </div>
+
+          <div id="tooltip">
+            
+          </div>
         </div>
          
+         <div id="legend">
+         </div>
 
       </div>
     
